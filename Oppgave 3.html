@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Part 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Oppgave 3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Oppgave 3_files/libs/quarto-html/quarto.js"></script>
+<script src="Oppgave 3_files/libs/quarto-html/popper.min.js"></script>
+<script src="Oppgave 3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Oppgave 3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Oppgave 3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Oppgave 3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Oppgave 3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Oppgave 3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Oppgave 3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Part 3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="forhold-mellom-vekt-og-knebøy-3rm" class="level1">
+<h1>Forhold mellom vekt og knebøy 3RM</h1>
+<p>I denne oppgaven skal vi se på forholdet mellom kroppsvekt og knebøy 3RM.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 31
+Columns: 147
+$ PARTICIPANT              &lt;chr&gt; "MRV001", "MRV002", "MRV003", "MRV004", "MRV0…
+$ GROUP                    &lt;chr&gt; "WP", "WP", "GWP", "GWP", "MALTO", "WP", "WP"…
+$ AGE                      &lt;dbl&gt; 22, 20, 24, 22, 19, 20, 27, 27, 20, 20, 20, 2…
+$ HEIGHT                   &lt;dbl&gt; 186.0, 179.0, 178.0, 183.0, 169.0, 178.5, 175…
+$ TRAINING_AGE             &lt;dbl&gt; 6, 5, 8, 7, 6, 3, 3, 12, 2, 7, 5, 7, 3, 8, 4,…
+$ BODYMASS_T2              &lt;dbl&gt; 92.3, 79.4, 81.7, 96.6, 72.9, 82.9, 86.2, 109…
+$ VL_T1                    &lt;dbl&gt; NA, 2.93, 3.34, 2.63, 3.78, 3.45, 2.87, 3.63,…
+$ VL_T2                    &lt;dbl&gt; 2.99, 2.70, 3.34, 2.42, 3.53, 3.20, 2.90, 3.7…
+$ VL_T3                    &lt;dbl&gt; 3.45, 2.90, 3.55, 2.53, 3.41, 3.22, 3.08, 3.7…
+$ VL_T4                    &lt;dbl&gt; 3.37, 2.75, 3.60, 2.53, 3.39, 3.06, 2.88, 3.8…
+$ BICEPS_T1                &lt;dbl&gt; 4.65, 3.70, 3.48, 4.01, 3.72, 3.57, 4.19, 5.2…
+$ BICEPS_T2                &lt;dbl&gt; 4.76, 3.75, 4.21, 4.67, 4.11, 3.61, 4.62, 5.7…
+$ BICEPS_T3                &lt;dbl&gt; 4.24, 3.43, 4.48, 4.49, 3.78, 3.54, 4.72, 5.3…
+$ BICEPS_T4                &lt;dbl&gt; 4.33, 3.79, 4.49, 4.73, 3.86, 3.73, 4.68, 5.3…
+$ ECW_T1                   &lt;dbl&gt; 19.84, 19.26, 17.64, 20.04, 16.20, 16.76, 17.…
+$ ECW_T2                   &lt;dbl&gt; 19.95, 17.50, 19.79, 21.69, 16.59, 16.44, 18.…
+$ ECW_T3                   &lt;dbl&gt; 19.89, 19.64, 20.51, 22.26, 17.17, 17.36, 17.…
+$ ECW_T4                   &lt;dbl&gt; 19.61, 18.00, 19.44, 20.90, 16.58, 17.53, 17.…
+$ ICW_T1                   &lt;dbl&gt; 29.96, 29.14, 29.32, 31.45, 27.55, 28.90, 26.…
+$ ICW_T2                   &lt;dbl&gt; 29.24, 29.04, 28.95, 33.43, 28.32, 29.04, 26.…
+$ ICW_T3                   &lt;dbl&gt; 29.46, 29.74, 29.30, 33.41, 29.07, 29.68, 26.…
+$ ICW_T4                   &lt;dbl&gt; 29.09, 28.41, 29.81, 33.77, 28.84, 28.81, 26.…
+$ TBW_T1                   &lt;dbl&gt; 49.81, 48.39, 46.96, 51.49, 43.75, 45.65, 43.…
+$ TBW_T2                   &lt;dbl&gt; 49.19, 46.54, 48.74, 55.12, 44.91, 45.48, 44.…
+$ TBW_T3                   &lt;dbl&gt; 49.35, 49.39, 49.81, 55.67, 46.24, 47.04, 44.…
+$ TBW_T4                   &lt;dbl&gt; 48.70, 46.40, 49.25, 54.67, 45.42, 46.33, 44.…
+$ TOTAL_VOLUME_LOAD_WEEK_1 &lt;dbl&gt; 32659, 27715, 30448, 30346, 27579, 30119, 313…
+$ TOTAL_VOLUME_LOAD_WEEK_2 &lt;dbl&gt; 49193, 41504, 46607, 44974, 41368, 45314, 471…
+$ TOTAL_VOLUME_LOAD_WEEK_3 &lt;dbl&gt; 65590, 55157, 62052, 59784, 55157, 60238, 629…
+$ TOTAL_VOLUME_LOAD_WEEK_4 &lt;dbl&gt; 78472, 66588, 74735, 71918, 66497, 72485, 763…
+$ TOTAL_VOLUME_LOAD_WEEK_5 &lt;dbl&gt; 91808, 77084, 86728, 83847, 77248, 84233, 881…
+$ TOTAL_VOLUME_LOAD_WEEK_6 &lt;dbl&gt; 104327, 86183, 98703, 95709, 87998, 96140, 10…
+$ CALS_WEEK_1              &lt;dbl&gt; 3324, 3136, 1702, 2818, 2175, 3214, 1517, 290…
+$ CALS_WEEK_2              &lt;dbl&gt; 3408, 3052, 990, 3612, 1992, 2904, 0, 3612, 2…
+$ CALS_WEEK_3              &lt;dbl&gt; 3296, 3011, 1759, 3541, 1813, 2473, 0, 3419, …
+$ CALS_WEEK_4              &lt;dbl&gt; 3208, 3121, 485, 3593, 1457, 3075, 0, 1950, 3…
+$ CALS_WEEK_5              &lt;dbl&gt; 3140, 3005, 0, 3461, 1913, 2782, 0, 1492, 352…
+$ CALS_WEEK_6              &lt;dbl&gt; 3204, 2855, 0, 3220, 841, 2434, 0, 168, 3154,…
+$ PROTEIN_WEEK_1           &lt;dbl&gt; 185.5, 177.0, 111.0, 225.0, 144.0, 157.5, 77.…
+$ PROTEIN_WEEK_2           &lt;dbl&gt; 186.0, 162.5, 68.5, 217.5, 111.0, 166.0, 0.0,…
+$ PROTEIN_WEEK_3           &lt;dbl&gt; 226.5, 179.5, 108.5, 258.0, 114.0, 124.0, 0.0…
+$ PROTEIN_WEEK_4           &lt;dbl&gt; 212.0, 205.0, 33.5, 270.0, 83.5, 162.0, 0.0, …
+$ PROTEIN_WEEK_5           &lt;dbl&gt; 227.0, 237.0, 0.0, 281.0, 97.5, 111.0, 0.0, 1…
+$ PROTEIN_WEEK_6           &lt;dbl&gt; 241.5, 233.5, 0.0, 259.0, 46.0, 108.0, 0.0, 1…
+$ CHO_WEEK_1               &lt;dbl&gt; 342.5, 286.0, 151.0, 120.5, 178.5, 330.0, 140…
+$ CHO_WEEK_2               &lt;dbl&gt; 288.0, 280.5, 87.0, 258.0, 194.0, 261.5, 0.0,…
+$ CHO_WEEK_3               &lt;dbl&gt; 306.5, 270.0, 141.5, 283.5, 189.5, 244.0, 0.0…
+$ CHO_WEEK_4               &lt;dbl&gt; 234.5, 295.0, 38.5, 237.5, 154.5, 308.5, 0.0,…
+$ CHO_WEEK_5               &lt;dbl&gt; 270.0, 285.0, 0.0, 271.5, 186.0, 344.0, 0.0, …
+$ CHO_WEEK_6               &lt;dbl&gt; 295.5, 279.5, 0.0, 236.0, 74.5, 282.5, 0.0, 1…
+$ FAT_WEEK_1               &lt;dbl&gt; 155.5, 135.0, 76.0, 166.5, 94.0, 139.5, 41.5,…
+$ FAT_WEEK_2               &lt;dbl&gt; 168.0, 150.5, 43.5, 139.5, 93.5, 121.0, 0.0, …
+$ FAT_WEEK_3               &lt;dbl&gt; 134.5, 145.0, 82.0, 155.0, 71.0, 109.0, 0.0, …
+$ FAT_WEEK_4               &lt;dbl&gt; 144.5, 124.0, 22.0, 159.5, 60.0, 143.5, 0.0, …
+$ FAT_WEEK_5               &lt;dbl&gt; 130.0, 109.5, 0.0, 121.5, 92.5, 116.5, 0.0, 5…
+$ FAT_WEEK_6               &lt;dbl&gt; 122.5, 98.5, 0.0, 121.0, 43.5, 151.5, 0.0, 6.…
+$ TMD_T1                   &lt;dbl&gt; 72, 114, 91, 83, 97, 83, 92, 86, 93, 70, 90, …
+$ TMD_T2                   &lt;dbl&gt; 72, 122, 100, 97, 113, 80, 102, 110, 146, 79,…
+$ TMD_T3                   &lt;dbl&gt; 73, 114, 102, 87, 128, 81, 95, 101, 121, 91, …
+$ PPT_AVG_T1               &lt;dbl&gt; 81.5, 63.9, 92.7, 50.5, 69.0, 69.3, 85.0, 73.…
+$ PPT_AVG_T2               &lt;dbl&gt; 56.8, 63.9, 79.8, 45.4, 77.2, 50.5, 73.7, 64.…
+$ PPT_AVG_T3               &lt;dbl&gt; 55.8, 59.2, 76.3, 46.5, 59.8, 42.0, 70.6, 66.…
+$ BODYMASS_T1              &lt;dbl&gt; 91.6, 82.0, 77.7, 94.2, 71.0, 83.4, 84.4, 109…
+$ BODYMASS_T3              &lt;dbl&gt; 91.9, 80.2, 83.9, 97.5, 72.6, 81.6, 85.4, 112…
+$ SQUAT_3RM                &lt;dbl&gt; 152, 125, 143, 134, 138, 147, 134, 166, 129, …
+$ SQUAT_VOLUME             &lt;dbl&gt; 125601, 102186, 119954, 111177, 114102, 12303…
+$ CLUSTER                  &lt;chr&gt; "LOW", "HIGH", "HIGH", "LOW", "HIGH", "LOW", …
+$ PERCENT_TYPE_I_T1        &lt;dbl&gt; 54.76, 73.28, 18.92, 33.00, 26.12, 45.45, 35.…
+$ PERCENT_TYPE_II_T1       &lt;dbl&gt; 45.24, 26.72, 81.08, 67.00, 73.88, 54.55, 65.…
+$ FAST_CSA_T1              &lt;dbl&gt; 4629.49, 4939.14, 3940.34, 4740.79, 3206.86, …
+$ FAST_CSA_T2              &lt;dbl&gt; 4256.38, 3960.79, 4000.22, 4191.82, 4026.11, …
+$ FAST_CSA_T3              &lt;dbl&gt; 5311.48, 5736.70, 5508.99, 4619.76, 5120.06, …
+$ SLOW_CSA_T1              &lt;dbl&gt; 2932.98, 3960.42, 3052.38, 3068.65, 2384.65, …
+$ SLOW_CSA_T2              &lt;dbl&gt; 2431.62, 2823.27, 3200.75, 3133.04, 3238.56, …
+$ SLOW_CSA_T3              &lt;dbl&gt; 2573.09, 4357.10, 3503.80, 3437.28, 3900.42, …
+$ FAST_NUCLEI_T1           &lt;dbl&gt; 4.51, 4.65, 3.35, 4.06, 3.08, 4.00, 3.27, 4.3…
+$ FAST_NUCLEI_T2           &lt;dbl&gt; 3.56, 3.67, 2.34, 3.15, 3.72, 5.11, 3.53, 3.3…
+$ FAST_NUCLEI_T3           &lt;dbl&gt; 5.30, 4.40, 4.33, 3.15, 2.90, 4.49, 2.62, 3.5…
+$ SLOW_NUCLEI_T1           &lt;dbl&gt; 2.97, 3.24, 2.50, 2.70, 2.71, 3.48, 3.86, 3.9…
+$ SLOW_NUCLEI_T2           &lt;dbl&gt; 2.44, 2.37, 2.03, 2.28, 3.37, 3.37, 2.75, 2.8…
+$ SLOW_NUCLEI_T3           &lt;dbl&gt; 2.94, 4.14, 2.77, 2.39, 2.97, 2.63, 2.07, 2.7…
+$ AR_PROTEIN_T1            &lt;dbl&gt; 13.33, 1.80, 36.86, NA, 23.61, 8.92, NA, NA, …
+$ AR_PROTEIN_T2            &lt;dbl&gt; 20.89, 34.83, 1.40, NA, 41.68, 82.90, NA, NA,…
+$ AR_PROTEIN_T3            &lt;dbl&gt; 22.78, 11.91, 2.08, NA, 29.38, 18.29, NA, NA,…
+$ PROTEASOME_T1            &lt;dbl&gt; 133.0, 22.5, 99.5, 50.5, 21.0, 53.0, 70.0, 54…
+$ PROTEASOME_T2            &lt;dbl&gt; 100.5, 65.0, 119.0, 69.0, 59.5, 37.0, 124.5, …
+$ PROTEASOME_T3            &lt;dbl&gt; 113.5, 63.0, 71.0, 43.0, 65.0, 45.5, 77.5, 74…
+$ GLYCOGEN_T1              &lt;dbl&gt; 4.65, 8.64, 4.77, 7.32, 4.79, 5.03, 6.18, 8.9…
+$ GLYCOGEN_T2              &lt;dbl&gt; 7.88, 6.72, 5.55, 4.66, 7.07, 2.40, 5.62, 7.5…
+$ GLYCOGEN_T3              &lt;dbl&gt; 5.59, 7.51, 5.52, 4.89, 4.92, 3.48, 5.98, 7.4…
+$ CS_T1                    &lt;dbl&gt; 0.32, 0.25, 0.39, 0.18, 0.23, 0.18, 0.29, 0.1…
+$ CS_T2                    &lt;dbl&gt; 0.23, 0.15, 0.20, 0.24, 0.19, 0.11, 0.27, 0.2…
+$ CS_T3                    &lt;dbl&gt; 0.20, 0.18, 0.21, 0.29, 0.18, 0.15, 0.27, 0.2…
+$ CK_T1                    &lt;dbl&gt; 348.67, 116.95, 381.46, 110.39, 112.58, 68.86…
+$ CK_T2                    &lt;dbl&gt; 721.38, 464.53, 1066.77, 61.21, 248.11, 177.0…
+$ CK_T3                    &lt;dbl&gt; 442.67, 348.67, 816.47, 62.30, 398.95, 43.72,…
+$ TESTOSTERONE_T1          &lt;dbl&gt; 390.0, 394.4, 270.3, 415.5, 413.6, 711.1, 108…
+$ TESTOSTERONE_T2          &lt;dbl&gt; 502.0, 337.7, 340.6, 391.7, 365.2, 628.7, 819…
+$ TESTOSTERONE_T3          &lt;dbl&gt; 486.9, 346.3, 309.5, 438.4, 441.6, 676.1, 885…
+$ CORTISOL_T1              &lt;dbl&gt; 10.20, 13.28, 14.92, 20.75, 8.84, 19.33, 18.0…
+$ CORTISOL_T2              &lt;dbl&gt; 11.29, 1.08, 16.90, 11.90, 7.73, 16.90, 16.90…
+$ CORTISOL_T3              &lt;dbl&gt; 9.71, 7.40, 15.87, 11.29, 11.29, 11.90, 14.92…
+$ PAN4EBP1_T1              &lt;dbl&gt; 1.79, 5.49, 5.11, 4.97, 5.36, 4.99, 8.00, 4.1…
+$ PAN4EBP1_T2              &lt;dbl&gt; 2.29, 4.81, 5.65, 4.78, 4.93, 3.37, 7.21, 3.5…
+$ PAN4EBP1_T3              &lt;dbl&gt; 3.76, 6.03, 6.40, 4.89, 4.16, 2.91, 6.75, 3.4…
+$ PHOSPHO4EBP1_T1          &lt;dbl&gt; 1.69, 2.64, 2.39, 1.82, 5.07, 5.02, 5.50, 2.9…
+$ PHOSPHO4EBP1_T2          &lt;dbl&gt; 2.66, 0.95, 3.39, 3.12, 3.83, 1.61, 5.44, 3.6…
+$ PHOSPHO4EBP1_T3          &lt;dbl&gt; 3.33, 1.32, 3.83, 1.70, 3.24, 1.73, 4.54, 3.3…
+$ PANMTOR_T1               &lt;dbl&gt; 20.85, 23.41, 5.32, 16.17, 36.66, 54.99, 57.7…
+$ PANMTOR_T2               &lt;dbl&gt; 27.23, 16.58, 3.80, 16.67, 31.04, 19.87, 44.7…
+$ PANMTOR_T3               &lt;dbl&gt; 35.79, 15.78, 32.44, 14.84, 31.32, 28.81, 41.…
+$ PHOSPHOMTOR_T1           &lt;dbl&gt; 7.15, 4.98, 2.86, 5.26, 7.44, 9.00, 10.58, 4.…
+$ PHOSPHOMTOR_T2           &lt;dbl&gt; 7.96, 3.39, 2.46, 5.23, 5.01, 2.74, 7.13, 4.5…
+$ PHOSPHOMTOR_T3           &lt;dbl&gt; 9.21, 3.49, 6.21, 3.75, 3.73, 4.01, 6.93, 5.4…
+$ PANAMPK_T1               &lt;dbl&gt; 14.51, 76.89, 5.60, 44.31, 23.77, 96.10, 27.2…
+$ PANAMPK_T2               &lt;dbl&gt; 19.38, 60.38, 4.53, 45.35, 12.88, 33.36, 18.5…
+$ PANAMPK_T3               &lt;dbl&gt; 20.95, 63.16, 13.86, 55.68, 15.06, 33.33, 23.…
+$ PHOSPHOAMPK_T1           &lt;dbl&gt; 4.65, 43.05, 3.93, 21.63, 6.04, 54.73, 8.06, …
+$ PHOSPHOAMPK_T2           &lt;dbl&gt; 5.52, 30.81, 3.69, 21.39, 4.36, 16.71, 6.98, …
+$ PHOSPHOAMPK_T3           &lt;dbl&gt; 6.45, 34.62, 4.67, 29.94, 4.91, 10.53, 6.28, …
+$ PANP70S6K_T1             &lt;dbl&gt; 22.56, 59.54, 31.13, 54.00, 94.32, 79.16, 112…
+$ PANP70S6K_T2             &lt;dbl&gt; 38.06, 41.27, 27.33, 60.45, 64.22, 22.21, 98.…
+$ PANP70S6K_T3             &lt;dbl&gt; 46.79, 44.32, 69.68, 46.23, 48.54, 23.97, 84.…
+$ PHOSPHOP70S6K_T1         &lt;dbl&gt; 1.82, 1.89, 2.06, 2.13, 1.93, 1.83, 2.47, 1.8…
+$ PHOSPHOP70S6K_T2         &lt;dbl&gt; 1.90, 1.85, 2.06, 2.23, 1.90, 1.80, 2.23, 1.8…
+$ PHOSPHOP70S6K_T3         &lt;dbl&gt; 2.27, 1.98, 1.99, 1.89, 1.95, 1.77, 1.96, 1.8…
+$ PANPOLYUB_T1             &lt;dbl&gt; 4.30, 5.22, 9.29, 5.01, 5.33, 13.20, 8.18, 7.…
+$ PANPOLYUB_T2             &lt;dbl&gt; 5.05, 4.93, 10.34, 4.97, 4.35, 8.39, 8.97, 7.…
+$ PANPOLYUB_T3             &lt;dbl&gt; 8.69, 5.48, 5.60, 5.17, 4.39, 6.21, 6.08, 8.2…
+$ RNA_T1                   &lt;dbl&gt; 313.5, 338.3, 372.1, 321.9, 334.0, 317.6, 343…
+$ RNA_T2                   &lt;dbl&gt; 459.7, 492.2, 392.0, 506.2, 445.0, 481.5, 421…
+$ RNA_T3                   &lt;dbl&gt; 589.1, 466.2, 509.2, 555.7, 353.8, 387.4, 396…
+$ MGF_T2T1_FOLD_CHANGE     &lt;dbl&gt; 0.56, 1.83, 1.33, 0.38, 1.26, 1.31, 5.08, 0.6…
+$ MGF_T3T1_FOLD_CHANGE     &lt;dbl&gt; 2.41, 3.19, 1.33, 0.88, 1.16, 1.02, 9.88, 1.6…
+$ MGF_T1                   &lt;dbl&gt; 9.80, 10.15, 10.12, 9.53, 9.86, 10.59, 11.71,…
+$ MSTN_T2T1_FOLD_CHANGE    &lt;dbl&gt; 1.01, 0.59, 0.85, 0.80, 0.55, 0.98, 1.32, 0.3…
+$ MSTN_T3T1_FOLD_CHANGE    &lt;dbl&gt; 1.15, 0.51, 0.90, 0.49, 0.64, 1.03, 3.53, 0.6…
+$ MSTN_T1                  &lt;dbl&gt; 4.76, 3.44, 3.96, 3.63, 3.84, 4.31, 4.41, 3.2…
+$ RNA45S_T1                &lt;dbl&gt; 0.39, -0.75, -1.22, -1.55, -1.81, -0.65, -0.8…
+$ RNA45S_T2T1_FOLD_CHANGE  &lt;dbl&gt; 1.23, 0.84, 0.67, 0.51, 0.51, 0.42, 0.80, 0.4…
+$ RNA45S_T3T1_FOLD_CHANGE  &lt;dbl&gt; 1.35, 1.06, 0.56, 0.44, 0.32, 1.30, 0.68, 0.3…
+$ DXA_LBM_T1               &lt;dbl&gt; 69.63, 63.88, 66.03, 70.79, 56.21, 57.50, 63.…
+$ DXA_LBM_T2               &lt;dbl&gt; 70.52, 62.46, 69.47, 73.75, 56.60, 57.16, 65.…
+$ DXA_LBM_T3               &lt;dbl&gt; 70.88, 64.41, 71.90, 74.99, 58.30, 57.33, 65.…
+$ DXA_FM_T1                &lt;dbl&gt; 17.31, 15.55, 9.37, 19.81, 12.07, 22.57, 16.7…
+$ DXA_FM_T2                &lt;dbl&gt; 17.94, 14.52, 8.88, 19.14, 13.36, 22.52, 16.9…
+$ DXA_FM_T3                &lt;dbl&gt; 17.19, 13.37, 9.46, 18.89, 11.91, 21.01, 16.8…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Komprimere datasett</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> hypertrophy <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(BODYMASS_T1, SQUAT_3RM)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Lage regresjonstabell</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(BODYMASS_T1 <span class="sc">~</span> SQUAT_3RM, <span class="at">data =</span> dat)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = BODYMASS_T1 ~ SQUAT_3RM, data = dat)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-15.742  -5.420   1.174   5.792  15.459 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 32.82116   11.20639   2.929 0.006694 ** 
+SQUAT_3RM    0.38126    0.08443   4.516 0.000104 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.865 on 28 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.4214,    Adjusted R-squared:  0.4007 
+F-statistic: 20.39 on 1 and 28 DF,  p-value: 0.0001042</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Lage regresjonsmodell</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dat <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(BODYMASS_T1, SQUAT_3RM)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Oppgave-3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
