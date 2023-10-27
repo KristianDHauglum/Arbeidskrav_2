@@ -1,0 +1,68 @@
+---
+title: "Part 3"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+# Forhold mellom vekt og knebøy 3RM
+
+I denne oppgaven skal vi se på forholdet mellom kroppsvekt og knebøy 3RM. Dataene i oppgaven er hentet fra "hypertrophy"-datasettet i "exscidata".
+
+```{r}
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+
+library(tidyverse)
+library(ggplot2)
+library(exscidata)
+library(gt)
+library(broom)
+
+```
+
+```{r}
+#| label: tbl-char
+#| tbl-cap: "Sammenheng mellom kroppsvekt og knebøy 3RM"
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+
+#Komprimere datasett
+dat <- hypertrophy %>%
+  select(SQUAT_3RM, BODYMASS_T1) %>%
+  mutate(bm_mc = BODYMASS_T1 - mean(BODYMASS_T1, na.rm=T)) 
+
+#Lage regresjonstabell
+mod <- lm(SQUAT_3RM ~ bm_mc, data = dat)
+
+tidy(mod)%>%
+  gt() %>%
+  fmt_auto()
+
+```
+
+@tbl-char viser estimater, standardfeil, t-verdi og p-verdi for "(Intercept)" og "bm_mc". Estimatet for "(Intercept)" i tabellen viser at knebøy 3RM er 131.333 kg ved gjennomsnittelig kroppsvekt. Estimatet for "bm_mc" viser at for hver kg endring i kroppsvekt endres knebøy 3RM med 1.105 kg. Dette kan ses også ses i @fig-char.
+
+Standardfeilen sier noe om spredningen i en estimert fordeling av teoretiske utvalg. Hvis standardfeilen er høy så varierer estimatet mye fra prøve til prøve dersom man gjennomfører forsøket flere ganger. I denne oppgaven er standardfeilen for knebøy 3RM ved gjennomsnittelig kroppsvekt 2.756. Standardfeilen for gjennomsnittelig kroppsvekt er 0.245.
+
+T-verdien brukes ofte i hypotesetesting for å vurdere om en koeffesient i en regresjonsmodell er signifikant forskjellig fra null. Å regne ut t-verdien er en måte å kvantifisere hvor mange standardfeil koeffesienten er borte fra nullverdien. Dersom koeffesienten er signifikant forskjellig fra null betyr det at det er en betydelig sammenheng eller effekt i datasettet. Når dette er tilfelle har vi bevis for å forkaste nullhypotesen til fordel for en alternativ hypotese som indikerer at det er en reel sammenheng eller effekt. T-verdien kan regnes ut ved å dele koeffesienten på standardfeilen. T-verdien for knebøy 3RM ved gjennomsnittlig kroppsvekt er 47.657. T-verdien for gjennomsnittelig kroppsvekt er 4.516. I denne oppgaven kunne et eksempel på en nullhypotese vært at kroppsvekt ikke påvirker knebøy 3RM. Ettersom T-verdien for gjennomsnittelig kroppsvekt er signifikant forskjellig fra null gir det en sterk støtte til at kroppsvekt faktisk påvirker knebøy 3RM. Dette syntes også tydelig på grafen i @fig-char.
+
+P-verdien brukes til å vurdere hvor signifikant resultatene fra en statistisk analyse er. Den viser sannsynligheten for å observere de observerte resultatene eller enda mere ekstreme resultater, gitt at nullhypotesen er sann. En lav p-verdi indikerer at det er lite sannsynlig å observere de observerte resultatene hvis nullhypotesen er sann, og tyder på at nullhypotesen bør forkastes til fordel for en alternativ hypotese. P-verdien for gjennomsnittlig kroppsvekt er 1.042\*10\^-4. Den lave p-verdien for gjennomsnittlig kroppsvekt viser at det er en signifikant sammenheng mellom kroppsvekt og knebøy 3RM. Det ser ut som at kroppsvekt har en betydelig positiv påvirkning på knebøy 3RM.
+
+```{r}
+#| label: fig-char
+#| fig-cap: "Sammenheng mellom kroppsvekt og knebøy 3RM"
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+
+#Lage en linjær modell
+dat %>%
+ggplot(aes(y = SQUAT_3RM,x = BODYMASS_T1)) + geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+
+```
