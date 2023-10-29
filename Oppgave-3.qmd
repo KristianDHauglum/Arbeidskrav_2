@@ -3,8 +3,59 @@ title: "Part 3"
 format: html
 editor: visual
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
+
+# Oppgave 2.2
+
+```{r}
+arbeidskrav2_resultater
+
+ab2 <- arbeidskrav2_resultater
+
+install.packages("ggplot2")  
+library(ggplot2)             
+
+# Laste inn datasettet (hvis ikke allerede gjort)
+# Forutsatt at datasettet heter "ab2"
+# Du må angi riktig filsti hvis datasettet ikke er i samme arbeidskatalog
+
+# Opprett en lineær regresjonsmodell
+reg_model <- lm(`Avg-Ct` ~ `Log-(sample-quan)`, data = ab2)
+
+# Skriv ut regresjonsmodellen
+summary(reg_model)
+
+ggplot(ab2, aes(x = `Log-(sample-quan)`, y = `Avg-Ct`)) +
+  geom_point() +  
+  geom_abline(intercept = 27, slope = -4.277, color = "black", linetype = "dashed") +  
+  labs(x = "Log-(sample-quan)", y = "Avg-Ct") +  
+  theme_minimal()
+
+
+custom_sd <- function(x) {
+  if (all(is.na(x))) {
+    return(NA)  
+  } else {
+    return(sd(x, na.rm = TRUE))
+  }
+}
+
+# Resten av koden her
+
+((10^(-1/-4.277)) - 1) * 100
+
+
+
+
+
+
+
+```
+
+Resultetene fra prøven er en fortynningsrekke, hvor blandingen er fortynnet med det dobbelte for hvert steg. Svarene vi får i regresjonssabellen forteller oss hvor nøye vi har hvert med pipetering, hvor bra kvaliteten er på prøvene og om det kan være eventuelle feilkilder. Som vi kan lese ut fra svarene er det sprikende svar i resudualtallene. Dette tyder på at resultetet ikke er til å stole på. Residualtallet forteller oss hvor langt prøvene er fra den gjennomsnittlige linjen. På primer efficiency tallene ser vi at prosenten er for lav Prosenten havnet på 71,3% hvor den ønskete prosenten skulle være mellom 90-110%. En av filkilgene vi har i resultetet er at vi mangler flere resultat for å kunne regne et gjennomsnitt. Prøvene ble kopiert tre ganger lik at vi tok et gjennomsnitt av det.
+
+# Oppgave 2.3
 
 # Forhold mellom vekt og knebøy 3RM
 
