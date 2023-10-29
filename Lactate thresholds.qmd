@@ -1,0 +1,101 @@
+```{r}
+library("tidyverse")
+library("ggplot2")
+library(exscidata)
+data("cyclingstudy")
+
+# Define the lt function to calculate lactate threshold
+lt <- function(data, lactate_threshold) {
+  # Fit a 3-degree polynomial model
+  m <- lm(lactate ~ watt + I(watt^2) + I(watt^3), data = data)
+  
+  # Store a data frame with exercise intensities
+  new_data <- data.frame(watt = seq(from = min(data$watt), to = max(data$watt), by = 0.01))
+  
+  # Predict using the new data, predicting lactate values at each intensity
+  new_data$pred <- predict(m, newdata = new_data)
+  
+  # Calculate deviation from the lactate value of interest
+  new_data$watt_threshold <- abs(new_data$pred - lactate_threshold)
+
+  # Create a results data frame
+  results <- data.frame(watt_threshold = new_data$watt[new_data$watt_threshold == min(new_data$watt_threshold)])
+  
+  # Return the data frame
+  return(results)
+}
+
+# Extract lactate values and calculate the lactate threshold at 2 mmol
+cyclingstudy %>%
+  select(subject, group, timepoint, lac.125:lac.375) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.", 
+               names_transform = list(watt = as.numeric), 
+               cols = lac.125:lac.375) %>%
+  filter(!is.na(lactate)) %>%
+  group_by(timepoint, subject, group) %>%
+  mutate(n = n()) %>%
+  filter(n >= 4) %>%
+  group_modify(~ lt(., 2))  # Calculate lactate threshold at 2 mmol
+
+# Extract lactate values and calculate the lactate threshold at 4 mmol
+cyclingstudy %>%
+  select(subject, group, timepoint, lac.125:lac.375) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.", 
+               names_transform = list(watt = as.numeric), 
+               cols = lac.125:lac.375) %>%
+  filter(!is.na(lactate)) %>%
+  group_by(timepoint, subject, group) %>%
+  mutate(n = n()) %>%
+  filter(n >= 4) %>%
+  group_modify(~ lt(., 4))  # Calculate lactate threshold at 4 mmol
+
+
+# Calculate the lactate thresholds at 2 mmol and 4 mmol
+threshold_2mmol <- cyclingstudy %>%
+  select(subject, group, timepoint, lac.125:lac.375) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.", 
+               names_transform = list(watt = as.numeric), 
+               cols = lac.125:lac.375) %>%
+  filter(!is.na(lactate)) %>%
+  group_by(timepoint, subject, group) %>%
+  mutate(n = n()) %>%
+  filter(n >= 4) %>%
+  group_modify(~ lt(., 2))  # Calculate lactate threshold at 2 mmol
+
+threshold_4mmol <- cyclingstudy %>%
+  select(subject, group, timepoint, lac.125:lac.375) %>%
+  pivot_longer(names_to = "watt", 
+               values_to = "lactate", 
+               names_prefix = "lac.", 
+               names_transform = list(watt = as.numeric), 
+               cols = lac.125:lac.375) %>%
+  filter(!is.na(lactate)) %>%
+  group_by(timepoint, subject, group) %>%
+  mutate(n = n()) %>%
+  filter(n >= 4) %>%
+  group_modify(~ lt(., 4))  # Calculate lactate threshold at 4 mmol
+
+# Calculate the mean lactate thresholds
+mean_threshold_2mmol <- mean(threshold_2mmol$watt_threshold, na.rm = TRUE)
+mean_threshold_4mmol <- mean(threshold_4mmol$watt_threshold, na.rm = TRUE)
+
+# Calculate the typical error as a percentage of the mean
+typical_error_2mmol <- (sd(threshold_2mmol$watt_threshold, na.rm = TRUE) / mean_threshold_2mmol) * 100
+typical_error_4mmol <- (sd(threshold_4mmol$watt_threshold, na.rm = TRUE) / mean_threshold_4mmol) * 100
+
+# Compare the reliability
+if (typical_error_2mmol < typical_error_4mmol) {
+  cat("Lactate threshold at 2 mmol is more reliable (lower typical error as a percentage of the mean) than 4 mmol.")
+} else if (typical_error_2mmol > typical_error_4mmol) {
+  cat("Lactate threshold at 4 mmol is more reliable (lower typical error as a percentage of the mean) than 2 mmol.")
+} else {
+  cat("The reliability of lactate thresholds at 2 mmol and 4 mmol is the same (typical errors are equal).")
+}
+```
+
