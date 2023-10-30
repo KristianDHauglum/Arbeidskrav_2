@@ -8,6 +8,8 @@ editor_options:
 
 # Oppgave 2.1
 
+I denne oppgaven skal vi kalkulere laktatterskel på to forskjellige treningsintensiteter (2 mmol og 4 mmol. Deretter skal vi teste reliabiliteten på de to laktatterskelene og sammenlikne disse med hverandre. Vi har brukt standardfeil for å teste reliabilitet.
+
 ```{r}
 
 #| echo: false
