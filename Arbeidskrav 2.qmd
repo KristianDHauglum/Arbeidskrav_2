@@ -106,6 +106,10 @@ mean_threshold_4mmol <- mean(threshold_4mmol$watt_threshold, na.rm = TRUE)
 typical_error_2mmol <- (sd(threshold_2mmol$watt_threshold, na.rm = TRUE) / mean_threshold_2mmol) * 100
 typical_error_4mmol <- (sd(threshold_4mmol$watt_threshold, na.rm = TRUE) / mean_threshold_4mmol) * 100
 
+print(paste("Typical Error at 2 mmol threshold: ", typical_error_2mmol, "%"))
+print(paste("Typical Error at 4 mmol threshold: ", typical_error_4mmol, "%"))
+
+
 # Compare the reliability
 if (typical_error_2mmol < typical_error_4mmol) {
   cat("Lactate threshold at 2 mmol is more reliable (lower typical error as a percentage of the mean) than 4 mmol.")
@@ -115,6 +119,8 @@ if (typical_error_2mmol < typical_error_4mmol) {
   cat("The reliability of lactate thresholds at 2 mmol and 4 mmol is the same (typical errors are equal).")
 }
 ```
+
+Ut i fra utregningene kan vi se at standardfeil på 2 mmol er 17,8 %, mens standardfeil på 4 mmol er 11,5 %. En kan dermed si at laktatterskel på 4 mmol er mer reliabel enn laktatterskel på 2 mmol.
 
 # Oppgave 2.2
 
