@@ -13,10 +13,9 @@ I denne oppgaven skal vi kalkulere laktatterskel på to forskjellige treningsint
 Dataene er hentet fra en sykkelstudie og kan finnes i "cyclingstudy".
 
 ```{r}
-
-#| echo: false
-#| message: false
-#| warning: false
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
 
 library("tidyverse")
 library("ggplot2")
@@ -127,7 +126,6 @@ For å predikere laktatterskel på 2 mmol og 4 mmol opprettes det en funksjon. D
 # Oppgave 2.2
 
 ```{r}
-
 #| echo: false
 #| message: false
 #| warning: false
