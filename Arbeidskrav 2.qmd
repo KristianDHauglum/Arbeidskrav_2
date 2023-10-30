@@ -3,12 +3,17 @@ title: "Arbeidskrav 2"
 format: html
 editor: visual
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 # Oppgave 2.1
 
 ```{r}
+
+#| echo: false
+#| message: false
+#| warning: false
+
 library("tidyverse")
 library("ggplot2")
 library(exscidata)
@@ -112,12 +117,17 @@ if (typical_error_2mmol < typical_error_4mmol) {
 # Oppgave 2.2
 
 ```{r}
-arbeidskrav2_resultater
 
-ab2 <- arbeidskrav2_resultater
+#| echo: false
+#| message: false
+#| warning: false
 
-install.packages("ggplot2")  
-library(ggplot2)             
+library(ggplot2)
+library(readxl)
+
+
+ab2 <- read_excel("arbeidskrav2-resultater.xlsx")
+
 
 # Laste inn datasettet (hvis ikke allerede gjort)
 # Forutsatt at datasettet heter "ab2"
