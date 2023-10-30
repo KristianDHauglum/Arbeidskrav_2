@@ -96,6 +96,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="oppgave-2.1" class="level1">
 <h1>Oppgave 2.1</h1>
+<p>I denne oppgaven skal vi kalkulere laktatterskel på to forskjellige treningsintensiteter (2 mmol og 4 mmol. Deretter skal vi teste reliabiliteten på de to laktatterskelene og sammenlikne disse med hverandre. Vi har brukt standardfeil for å teste reliabilitet.</p>
+<p>Dataene er hentet fra en sykkelstudie og kan finnes i “cyclingstudy”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
@@ -234,42 +236,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>typical_error_2mmol <span class="ot">&lt;-</span> (<span class="fu">sd</span>(threshold_2mmol<span class="sc">$</span>watt_threshold, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> mean_threshold_2mmol) <span class="sc">*</span> <span class="dv">100</span></span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>typical_error_4mmol <span class="ot">&lt;-</span> (<span class="fu">sd</span>(threshold_4mmol<span class="sc">$</span>watt_threshold, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> mean_threshold_4mmol) <span class="sc">*</span> <span class="dv">100</span></span>
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the reliability</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (typical_error_2mmol <span class="sc">&lt;</span> typical_error_4mmol) {</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Lactate threshold at 2 mmol is more reliable (lower typical error as a percentage of the mean) than 4 mmol."</span>)</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (typical_error_2mmol <span class="sc">&gt;</span> typical_error_4mmol) {</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Lactate threshold at 4 mmol is more reliable (lower typical error as a percentage of the mean) than 2 mmol."</span>)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"The reliability of lactate thresholds at 2 mmol and 4 mmol is the same (typical errors are equal)."</span>)</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Typical Error at 2 mmol threshold: "</span>, typical_error_2mmol, <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Typical Error at 2 mmol threshold:  17.8374613542628 %"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Typical Error at 4 mmol threshold: "</span>, typical_error_4mmol, <span class="st">"%"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Typical Error at 4 mmol threshold:  11.4973490725676 %"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare the reliability</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (typical_error_2mmol <span class="sc">&lt;</span> typical_error_4mmol) {</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Lactate threshold at 2 mmol is more reliable (lower typical error as a percentage of the mean) than 4 mmol."</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (typical_error_2mmol <span class="sc">&gt;</span> typical_error_4mmol) {</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Lactate threshold at 4 mmol is more reliable (lower typical error as a percentage of the mean) than 2 mmol."</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"The reliability of lactate thresholds at 2 mmol and 4 mmol is the same (typical errors are equal)."</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Lactate threshold at 4 mmol is more reliable (lower typical error as a percentage of the mean) than 2 mmol.</code></pre>
 </div>
 </div>
+<p>Ut i fra utregningene kan vi se at standardfeil på 2 mmol er 17,8 %, mens standardfeil på 4 mmol er 11,5 %. En kan dermed si at laktatterskel på 4 mmol er mer reliabel enn laktatterskel på 2 mmol.</p>
 </section>
 <section id="oppgave-2.2" class="level1">
 <h1>Oppgave 2.2</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ab2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"arbeidskrav2-resultater.xlsx"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Laste inn datasettet (hvis ikke allerede gjort)</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Forutsatt at datasettet heter "ab2"</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Du må angi riktig filsti hvis datasettet ikke er i samme arbeidskatalog</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett en lineær regresjonsmodell</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>reg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Avg-Ct</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Log-(sample-quan)</span><span class="st">`</span>, <span class="at">data =</span> ab2)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Skriv ut regresjonsmodellen</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ab2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"arbeidskrav2-resultater.xlsx"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Laste inn datasettet (hvis ikke allerede gjort)</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Forutsatt at datasettet heter "ab2"</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Du må angi riktig filsti hvis datasettet ikke er i samme arbeidskatalog</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Opprett en lineær regresjonsmodell</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>reg_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Avg-Ct</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Log-(sample-quan)</span><span class="st">`</span>, <span class="at">data =</span> ab2)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Skriv ut regresjonsmodellen</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(reg_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -290,30 +301,31 @@ Residual standard error: 0.961 on 4 degrees of freedom
 Multiple R-squared:  0.887, Adjusted R-squared:  0.8587 
 F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ab2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Log-(sample-quan)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Avg-Ct</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">27</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">4.277</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span>  </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log-(sample-quan)"</span>, <span class="at">y =</span> <span class="st">"Avg-Ct"</span>) <span class="sc">+</span>  </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ab2, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Log-(sample-quan)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Avg-Ct</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">27</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">4.277</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span>  </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log-(sample-quan)"</span>, <span class="at">y =</span> <span class="st">"Avg-Ct"</span>) <span class="sc">+</span>  </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Arbeidskrav-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>custom_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(x))) {</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)  </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Resten av koden her</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>((<span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/-</span><span class="fl">4.277</span>)) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>custom_sd <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">all</span>(<span class="fu">is.na</span>(x))) {</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NA</span>)  </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Resten av koden her</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>((<span class="dv">10</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/-</span><span class="fl">4.277</span>)) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 71.32027</code></pre>
 </div>
 </div>
-<p>Resultetene fra prøven er en fortynningsrekke, hvor blandingen er fortynnet med det dobbelte for hvert steg. Svarene vi får i regresjonssabellen forteller oss hvor nøye vi har hvert med pipetering, hvor bra kvaliteten er på prøvene og om det kan være eventuelle feilkilder. Som vi kan lese ut fra svarene er det sprikende svar i resudualtallene. Dette tyder på at resultetet ikke er til å stole på. Residualtallet forteller oss hvor langt prøvene er fra den gjennomsnittlige linjen. På primer efficiency tallene ser vi at prosenten er for lav Prosenten havnet på 71,3% hvor den ønskete prosenten skulle være mellom 90-110%. En av filkilgene vi har i resultetet er at vi mangler flere resultat for å kunne regne et gjennomsnitt. Prøvene ble kopiert tre ganger lik at vi tok et gjennomsnitt av det.</p>
+<p>Resultatene fra prøven er en fortynningsrekke, der blandingen er fortynnet med det dobbelte for hvert steg. Svarene vi får i regresjonsmodellen forteller oss hvor nøye vi har hvert med pipetering, samt hvor bra kvaliteten er på prøvene og om det kan være eventuelle feilkilder. Som vi kan lese ut fra svarene er det sprikende svar i resudualtallene. Residualtallene er hvor mye hvert punkt i grafen spriker fra regresjonslinjen. I vårt tilfelle ser vi at punktene varierer i hvor nærme i de er regresjonslinjen. Det innebærer at resultatene må tolkes med forsiktighet. Dersom samtlige punkter hadde ligget nærmere eller på linjen, tyder det på “jevnere” resultater.</p>
+<p>På primer efficiency ser vi at prosenten er for lav. I vårt tilfelle havnet denne prosenten på 71,3%. Her skulle den ønskede prosenten ligget mellom 90-110%. En av feilkildene vi må ta i betraktning er at vi mangler flere resultater for å kunne regne et pålitelig gjennomsnitt. Dette skyldes utfordringer i pipetering og avlesing av resultater</p>
 </section>
 <section id="oppgave-2.3" class="level1">
 <h1>Oppgave 2.3</h1>
@@ -325,23 +337,23 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
 <div class="cell-output-display">
 <div id="tbl-char" class="anchored">
 
-<div id="hmdgdthogw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hmdgdthogw table {
+<div id="yqvvlwwasn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yqvvlwwasn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hmdgdthogw thead, #hmdgdthogw tbody, #hmdgdthogw tfoot, #hmdgdthogw tr, #hmdgdthogw td, #hmdgdthogw th {
+#yqvvlwwasn thead, #yqvvlwwasn tbody, #yqvvlwwasn tfoot, #yqvvlwwasn tr, #yqvvlwwasn td, #yqvvlwwasn th {
   border-style: none;
 }
 
-#hmdgdthogw p {
+#yqvvlwwasn p {
   margin: 0;
   padding: 0;
 }
 
-#hmdgdthogw .gt_table {
+#yqvvlwwasn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -367,12 +379,12 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_caption {
+#yqvvlwwasn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hmdgdthogw .gt_title {
+#yqvvlwwasn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -384,7 +396,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-bottom-width: 0;
 }
 
-#hmdgdthogw .gt_subtitle {
+#yqvvlwwasn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -396,7 +408,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-top-width: 0;
 }
 
-#hmdgdthogw .gt_heading {
+#yqvvlwwasn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -408,13 +420,13 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_bottom_border {
+#yqvvlwwasn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_col_headings {
+#yqvvlwwasn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -429,7 +441,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_col_heading {
+#yqvvlwwasn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -449,7 +461,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   overflow-x: hidden;
 }
 
-#hmdgdthogw .gt_column_spanner_outer {
+#yqvvlwwasn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -461,15 +473,15 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 4px;
 }
 
-#hmdgdthogw .gt_column_spanner_outer:first-child {
+#yqvvlwwasn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hmdgdthogw .gt_column_spanner_outer:last-child {
+#yqvvlwwasn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hmdgdthogw .gt_column_spanner {
+#yqvvlwwasn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -481,11 +493,11 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   width: 100%;
 }
 
-#hmdgdthogw .gt_spanner_row {
+#yqvvlwwasn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hmdgdthogw .gt_group_heading {
+#yqvvlwwasn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -511,7 +523,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   text-align: left;
 }
 
-#hmdgdthogw .gt_empty_group_heading {
+#yqvvlwwasn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -526,15 +538,15 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   vertical-align: middle;
 }
 
-#hmdgdthogw .gt_from_md > :first-child {
+#yqvvlwwasn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hmdgdthogw .gt_from_md > :last-child {
+#yqvvlwwasn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hmdgdthogw .gt_row {
+#yqvvlwwasn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -553,7 +565,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   overflow-x: hidden;
 }
 
-#hmdgdthogw .gt_stub {
+#yqvvlwwasn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -566,7 +578,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 5px;
 }
 
-#hmdgdthogw .gt_stub_row_group {
+#yqvvlwwasn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -580,15 +592,15 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   vertical-align: top;
 }
 
-#hmdgdthogw .gt_row_group_first td {
+#yqvvlwwasn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hmdgdthogw .gt_row_group_first th {
+#yqvvlwwasn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hmdgdthogw .gt_summary_row {
+#yqvvlwwasn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -598,16 +610,16 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 5px;
 }
 
-#hmdgdthogw .gt_first_summary_row {
+#yqvvlwwasn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_first_summary_row.thick {
+#yqvvlwwasn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hmdgdthogw .gt_last_summary_row {
+#yqvvlwwasn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -617,7 +629,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_grand_summary_row {
+#yqvvlwwasn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -627,7 +639,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 5px;
 }
 
-#hmdgdthogw .gt_first_grand_summary_row {
+#yqvvlwwasn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -637,7 +649,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_last_grand_summary_row_top {
+#yqvvlwwasn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -647,11 +659,11 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_striped {
+#yqvvlwwasn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hmdgdthogw .gt_table_body {
+#yqvvlwwasn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -660,7 +672,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_footnotes {
+#yqvvlwwasn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -674,7 +686,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_footnote {
+#yqvvlwwasn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -683,7 +695,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 5px;
 }
 
-#hmdgdthogw .gt_sourcenotes {
+#yqvvlwwasn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -697,7 +709,7 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#hmdgdthogw .gt_sourcenote {
+#yqvvlwwasn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -705,63 +717,63 @@ F-statistic: 31.39 on 1 and 4 DF,  p-value: 0.004984</code></pre>
   padding-right: 5px;
 }
 
-#hmdgdthogw .gt_left {
+#yqvvlwwasn .gt_left {
   text-align: left;
 }
 
-#hmdgdthogw .gt_center {
+#yqvvlwwasn .gt_center {
   text-align: center;
 }
 
-#hmdgdthogw .gt_right {
+#yqvvlwwasn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hmdgdthogw .gt_font_normal {
+#yqvvlwwasn .gt_font_normal {
   font-weight: normal;
 }
 
-#hmdgdthogw .gt_font_bold {
+#yqvvlwwasn .gt_font_bold {
   font-weight: bold;
 }
 
-#hmdgdthogw .gt_font_italic {
+#yqvvlwwasn .gt_font_italic {
   font-style: italic;
 }
 
-#hmdgdthogw .gt_super {
+#yqvvlwwasn .gt_super {
   font-size: 65%;
 }
 
-#hmdgdthogw .gt_footnote_marks {
+#yqvvlwwasn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hmdgdthogw .gt_asterisk {
+#yqvvlwwasn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hmdgdthogw .gt_indent_1 {
+#yqvvlwwasn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hmdgdthogw .gt_indent_2 {
+#yqvvlwwasn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hmdgdthogw .gt_indent_3 {
+#yqvvlwwasn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hmdgdthogw .gt_indent_4 {
+#yqvvlwwasn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hmdgdthogw .gt_indent_5 {
+#yqvvlwwasn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

@@ -10,6 +10,8 @@ editor_options:
 
 I denne oppgaven skal vi kalkulere laktatterskel på to forskjellige treningsintensiteter (2 mmol og 4 mmol. Deretter skal vi teste reliabiliteten på de to laktatterskelene og sammenlikne disse med hverandre. Vi har brukt standardfeil for å teste reliabilitet.
 
+Dataene er hentet fra en sykkelstudie og kan finnes i "cyclingstudy".
+
 ```{r}
 
 #| echo: false
@@ -120,7 +122,7 @@ if (typical_error_2mmol < typical_error_4mmol) {
 }
 ```
 
-Ut i fra utregningene kan vi se at standardfeil på 2 mmol er 17,8 %, mens standardfeil på 4 mmol er 11,5 %. En kan dermed si at laktatterskel på 4 mmol er mer reliabel enn laktatterskel på 2 mmol.
+For å predikere laktatterskel på 2 mmol og 4 mmol opprettes det en funksjon. Denne kjøres en gang for 2 mmol og en gang for 4 mmol. Deretter kalkuleres gjennomsnittlig laktatterskel for hele populasjonen for 2 mmol og 4 mmol, og så standardfeil fra dette gjennomsnittet. Ut i fra utregningene kan vi se at standardfeil på 2 mmol er 17,8 %, mens standardfeil på 4 mmol er 11,5 %. En kan dermed si at laktatterskel på 4 mmol er mer reliabel enn laktatterskel på 2 mmol.
 
 # Oppgave 2.2
 
@@ -174,7 +176,9 @@ custom_sd <- function(x) {
 
 ```
 
-Resultetene fra prøven er en fortynningsrekke, hvor blandingen er fortynnet med det dobbelte for hvert steg. Svarene vi får i regresjonssabellen forteller oss hvor nøye vi har hvert med pipetering, hvor bra kvaliteten er på prøvene og om det kan være eventuelle feilkilder. Som vi kan lese ut fra svarene er det sprikende svar i resudualtallene. Dette tyder på at resultetet ikke er til å stole på. Residualtallet forteller oss hvor langt prøvene er fra den gjennomsnittlige linjen. På primer efficiency tallene ser vi at prosenten er for lav Prosenten havnet på 71,3% hvor den ønskete prosenten skulle være mellom 90-110%. En av filkilgene vi har i resultetet er at vi mangler flere resultat for å kunne regne et gjennomsnitt. Prøvene ble kopiert tre ganger lik at vi tok et gjennomsnitt av det.
+Resultatene fra prøven er en fortynningsrekke, der blandingen er fortynnet med det dobbelte for hvert steg. Svarene vi får i regresjonsmodellen forteller oss hvor nøye vi har hvert med pipetering, samt hvor bra kvaliteten er på prøvene og om det kan være eventuelle feilkilder. Som vi kan lese ut fra svarene er det sprikende svar i resudualtallene. Residualtallene er hvor mye hvert punkt i grafen spriker fra regresjonslinjen. I vårt tilfelle ser vi at punktene varierer i hvor nærme i de er regresjonslinjen. Det innebærer at resultatene må tolkes med forsiktighet. Dersom samtlige punkter hadde ligget nærmere eller på linjen, tyder det på "jevnere" resultater.
+
+På primer efficiency ser vi at prosenten er for lav. I vårt tilfelle havnet denne prosenten på 71,3%. Her skulle den ønskede prosenten ligget mellom 90-110%. En av feilkildene vi må ta i betraktning er at vi mangler flere resultater for å kunne regne et pålitelig gjennomsnitt. Dette skyldes utfordringer i pipetering og avlesing av resultater
 
 # Oppgave 2.3
 
